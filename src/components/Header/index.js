@@ -4,19 +4,24 @@ import Link from 'next/link'
 import { SunIcon } from '../Icons'
 const Header = () => {
   return (
-    <header className='w-full p-4 px-10 flex items-center justify-between'>
+    <header className="w-full p-4 px-10 flex items-center justify-between">
       <Logo />
-      <nav className='flex items-center gap-4 capitalize px-3 py-8  font-medium'>
-        <Link href='/'>Home</Link>
-        <Link href='/about'>About</Link>
-        <Link href='/projects'>Projects</Link>
-        <button className='cursor-pointer'>
+      <nav className="flex items-center gap-4 capitalize px-3 py-8 font-medium">
+        <Link href="/" className="mr-2">
+          Home
+        </Link>
+        <Link href="/about" className="mx-2">
+          About
+        </Link>
+        <Link href="/projects" className="mx-2">
+          Projects
+        </Link>
+        <button className="cursor-pointer">
           <SunIcon />
         </button>
-      </nav> 
-      
+      </nav>
     </header>
-  )
+  );
 }
 
 export default Header
