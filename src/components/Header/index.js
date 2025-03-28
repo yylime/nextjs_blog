@@ -13,8 +13,8 @@ const Header = () => {
         <Link href="/about" className="mx-2">
           About
         </Link>
-        <Link href="/projects" className="mx-2">
-          Projects
+        <Link href="/contact" className="mx-2">
+          Contact
         </Link>
         <button className="cursor-pointer">
           <SunIcon />
