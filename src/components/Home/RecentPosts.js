@@ -3,6 +3,7 @@ import { sortBlogs } from "@/utils";
 import Link from "next/link";
 import Image from "next/image";
 import { format } from "date-fns";
+import {slug} from "github-slugger";
 const RecentPosts = ({ blogs }) => {
   const sortedBlogs = sortBlogs(blogs);
   return (
@@ -23,7 +24,7 @@ const RecentPosts = ({ blogs }) => {
           <article key={index} className="col-span-1 row-span-1 relative">
             <div className="group w-full flex flex-col items-start gap-4 text-dark justify-start">
               <Link
-                href={`/blog/${blog.url}`}
+                href={`${blog.url}`}
                 className="w-full h-auto overflow-hidden rounded-lg"
               >
                 <Image
@@ -37,9 +38,11 @@ const RecentPosts = ({ blogs }) => {
                 />
               </Link>
               <div className="flex flex-col">
-                <span className="uppercase text-accent font-semibold text-sm">
-                  {blog.tags[0]}
-                </span>
+                <Link href={`/categories/${slug(blog.tags[0])}`}>
+                  <span className="uppercase text-accent font-semibold text-sm">
+                    {blog.tags[0]}
+                  </span>
+                </Link>
                 <Link href={blog.url} className="inline-block my-1">
                   <h2 className="font-semibold capitalize text-lg mt-4">
                     <span className="bg-gradient-to-t from-accent/50 to-accent bg-[length:0px_4px] group-hover:bg-[length:100%_4px] bg-left-bottom bg-no-repeat transition-all duration-500">
