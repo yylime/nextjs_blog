@@ -3,9 +3,9 @@
 const {withContentlayer} = require("next-contentlayer")
 
 const nextConfig = {
-    // compiler:{
-    //     removeConsole: false,
-    // }
+    compiler:{
+        removeConsole: false,
+    }
 };
 
 module.exports = withContentlayer({ ...nextConfig });

@@ -5,6 +5,7 @@ module.exports = {
     "./src/components/**/*.{js,ts,jsx,tsx,mdx}",
     "./src/app/**/*.{js,ts,jsx,tsx,mdx}",
   ],
+  darkMode: "selector",
   theme: {
     extend: {
       backgroundImage: {
@@ -30,6 +31,10 @@ module.exports = {
           "100%": { transform: "translateX(-100%)" },
         },
       },
+      screens:{
+        sxl: "1180px",
+        xs: "480px"
+      }
     },
   },
   plugins: [require("@tailwindcss/typography"), require("@tailwindcss/forms")],

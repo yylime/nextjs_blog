@@ -3,59 +3,26 @@ import { sortBlogs } from "@/utils";
 import Link from "next/link";
 import Image from "next/image";
 import { format } from "date-fns";
-import {slug} from "github-slugger";
+import { slug } from "github-slugger";
+import BlogLayoutThree from "../Blog/BlogLayoutThree";
 const RecentPosts = ({ blogs }) => {
   const sortedBlogs = sortBlogs(blogs);
   return (
-    <section className="w-full mt-32 px-32 flex flex-col items-center justify-center">
+    <section className="w-full mt-16 sm:mt-24 md:mt-32 px-5 sm:px-10 md:px-24 sxl:px-32 flex flex-col items-center justify-center">
       <div className="w-full flex justify-between">
-        <h2 className="inline-block font-bold capitalize text-4xl">
+        <h2 className="w-fit inline-block font-bold capitalize text-2x; md:text-4xl dark:text-light">
           Recent Posts
         </h2>
         <Link
           href="/categories/all"
-          className="inline-block font-medium text-accent underline underline-offset-2 text-lg"
+          className="inline-block font-medium text-accent dark:text-accentDark underline underline-offset-2 text-base md:text-lg"
         >
           view all
         </Link>
       </div>
-      <div className="w-full grid grid-cols-3 gap-16 mt-16">
+      <div className="w-full grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-16 mt-16">
         {sortedBlogs.slice(4, 10).map((blog, index) => (
-          <article key={index} className="col-span-1 row-span-1 relative">
-            <div className="group w-full flex flex-col items-start gap-4 text-dark justify-start">
-              <Link
-                href={`${blog.url}`}
-                className="w-full h-auto overflow-hidden rounded-lg"
-              >
-                <Image
-                  src={blog.image.filePath.replace("../public", "")}
-                  placeholder="blur"
-                  blurDataURL={blog.image.blurhashDataUrl}
-                  alt={blog.title}
-                  width={blog.image.width}
-                  height={blog.image.height}
-                  className="aspect-[4/3] w-full h-full object-cover object-center group-hover:scale-105 transition-all duration-300"
-                />
-              </Link>
-              <div className="flex flex-col">
-                <Link href={`/categories/${slug(blog.tags[0])}`}>
-                  <span className="uppercase text-accent font-semibold text-sm">
-                    {blog.tags[0]}
-                  </span>
-                </Link>
-                <Link href={blog.url} className="inline-block my-1">
-                  <h2 className="font-semibold capitalize text-lg mt-4">
-                    <span className="bg-gradient-to-t from-accent/50 to-accent bg-[length:0px_4px] group-hover:bg-[length:100%_4px] bg-left-bottom bg-no-repeat transition-all duration-500">
-                      {blog.title}
-                    </span>
-                  </h2>
-                </Link>
-                <span className="capitalize text-gray text-base font-semibold">
-                  {format(new Date(blog.publishedAt), "yyyy MMMM dd")}
-                </span>
-              </div>
-            </div>
-          </article>
+          <BlogLayoutThree key={index} blog={blog} />
         ))}
       </div>
     </section>
