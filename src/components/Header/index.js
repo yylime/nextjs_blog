@@ -1,14 +1,14 @@
-"use client"
+"use client";
 
-import React from 'react'
-import Logo from '@/components/Header/Logo'
-import Link from 'next/link'
-import { SunIcon } from '../Icons'
-import { useThemeSwitch } from '../Hooks/useThemeSwitch'
+import React from "react";
+import Logo from "@/components/Header/Logo";
+import Link from "next/link";
+import { MoonIcon, SunIcon } from "../Icons";
+import { useThemeSwitch } from "../Hooks/useThemeSwitch";
+import { cx } from "@/utils";
 const Header = () => {
-
   const [mode, setMode] = useThemeSwitch();
-  
+
   return (
     <header className="w-full p-4 px-5 sm:px-10 flex items-center justify-between">
       <Logo />
@@ -23,14 +23,21 @@ const Header = () => {
           Contact
         </Link>
         <button
-          className="cursor-pointer"
+          className={cx(
+            "cursor-pointer w-6 h-6 ease ml-2 flex items-center justify-center rounded-full p-1",
+            mode === "light" ? "bg-dark text-light" : "bg-light text-dark"
+          )}
           onClick={() => setMode(mode === "light" ? "dark" : "light")}
         >
-          <SunIcon />
+          {mode === "light" ? (
+            <MoonIcon className={"fill-light"} />
+          ) : (
+            <SunIcon className={"fill-dark"} />
+          )}
         </button>
       </nav>
     </header>
   );
-}
+};
 
 export default Header;

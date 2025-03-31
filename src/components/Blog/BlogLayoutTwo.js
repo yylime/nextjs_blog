@@ -10,13 +10,15 @@ const BlogLayoutTwo = ({ blog }) => {
         className="col-span-12 lg:col-span-4 rounded-xl overflow-hidden"
       >
         <Image
-          src={blog.image.filePath.replace("../public", "")}
+          src={blog.image.src}
           placeholder="blur"
-          blurDataURL={blog.image.blurhashDataUrl}
+          blurDataURL={blog.image.blurDataURL}
           alt={blog.title}
           width={blog.image.width}
           height={blog.image.height}
           className="aspect-square w-full h-full object-cover object-center group-hover:scale-105 transition-all duration-300"
+          sizes="(max-width: 640) 100vw, (max-width: 1180px) 50vw, 33vw"
+          priority
         />
       </Link>
       <div className="col-span-12 lg:col-span-8 w-full">

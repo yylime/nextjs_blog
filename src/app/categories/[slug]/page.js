@@ -1,67 +1,75 @@
-import { format } from "date-fns";
-import Categories from "@/components/Blog/Categories";
-import { allBlogs } from "contentlayer/generated";
-import GithubSlug, { slug } from "github-slugger";
-import Link from "next/link";
-import Image from "next/image";
-import { sortBlogs } from "@/utils";
+import { blogs as allBlogs } from "velite/generated";
 import BlogLayoutThree from "@/components/Blog/BlogLayoutThree";
+import Categories from "@/components/Blog/Categories";
+import { slug } from "github-slugger";
 
-const slugger = new GithubSlug();
-// Return a list of `params` to populate the [slug] dynamic segment
+// const slugger = new GithubSlugger();
+
 export async function generateStaticParams() {
   const categories = [];
   const paths = [{ slug: "all" }];
+
   allBlogs.map((blog) => {
     if (blog.isPublished) {
       blog.tags.map((tag) => {
-        let slugTag = slug(tag);
-        if (categories.indexOf(slugTag) === -1) {
-          categories.push(slugTag);
-          paths.push({ slug: slugTag });
+        let slugified = slug(tag);
+        if (!categories.includes(slugified)) {
+          categories.push(slugified);
+          paths.push({ slug: slugified });
         }
       });
     }
   });
+
   return paths;
 }
 
 export async function generateMetadata({ params }) {
   return {
     title: `${params.slug.replaceAll("-", " ")} Blogs`,
-    description: `Learn more about ${params.slug === "all" ? "web development" : params.slug} through our collection of blogs and tutorials.`,
+    description: `Learn more about ${
+      params.slug === "all" ? "web development" : params.slug
+    } through our collection of expert blogs and tutorials`,
   };
 }
 
-
-export default async function CategoryPage({ params }) {
-  const all_categories = ["all"];
-  const blogs = allBlogs.filter((blog) => {
-    return blog.tags.some((tag) => {
-      const slugTag = slug(tag);
-      if (all_categories.indexOf(slugTag) === -1) {
-        all_categories.push(slugTag);
+const CategoryPage = ({ params }) => {
+  // Separating logic to create list of categories from all blogs
+  const allCategories = ["all"]; // Initialize with 'all' category
+  allBlogs.forEach((blog) => {
+    blog.tags.forEach((tag) => {
+      const slugified = slug(tag);
+      if (!allCategories.includes(slugified)) {
+        allCategories.push(slugified);
       }
-      if (params.slug === "all") {
-        return true;
-      }
-      return slugTag === params.slug;
     });
   });
 
+  // Sort allCategories to ensure they are in alphabetical order
+  allCategories.sort();
+
+  // Step 2: Filter blogs based on the current category (params.slug)
+  const blogs = allBlogs.filter((blog) => {
+    if (params.slug === "all") {
+      return true; // Include all blogs if 'all' category is selected
+    }
+    return blog.tags.some((tag) => slug(tag) === params.slug);
+  });
+
   return (
-    <article className="mt-2 flex flex-col text-dark dark:text-light">
-      <div className="flex flex-col px-5 sm:px-10 md:px-24 sxl:px-32">
-        <h1 className="mt-6 font-bold text-2xl md:text-4xl lg:text-5xl">
+    <article className="mt-12 flex flex-col text-dark dark:text-light">
+      <div className=" px-5 sm:px-10  md:px-24  sxl:px-32 flex flex-col">
+        <h1 className="mt-6 font-semibold text-2xl md:text-4xl lg:text-5xl">
           #{params.slug}
         </h1>
         <span className="mt-2 inline-block">
           Discover more categories and expand your knowledge!
         </span>
       </div>
-      <Categories categories={all_categories} currentSlug={params.slug} />
-      <div className="w-full grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-16 pt-5 sm:pt-10 md:pt-24 sxl:pt-32 px-5 sm:px-10 md:px-24 sxl:px-32">
-        {sortBlogs(blogs).map((blog, index) => (
+      <Categories categories={allCategories} currentSlug={params.slug} />
+
+      <div className="grid  grid-cols-1 sm:grid-cols-2  lg:grid-cols-3 grid-rows-2 gap-16 mt-5 sm:mt-10 md:mt-24 sxl:mt-32 px-5 sm:px-10 md:px-24 sxl:px-32">
+        {blogs.map((blog, index) => (
           <article key={index} className="col-span-1 row-span-1 relative">
             <BlogLayoutThree blog={blog} />
           </article>
@@ -69,4 +77,6 @@ export default async function CategoryPage({ params }) {
       </div>
     </article>
   );
-}
+};
+
+export default CategoryPage;

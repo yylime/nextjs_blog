@@ -5,7 +5,8 @@ import { GeistSans } from "geist/font/sans";
 import { GeistMono } from "geist/font/mono";
 import Footer from "@/components/Footer";
 import siteMetadata from "@/utils/siteMetaData";
-import Script from "next/script";
+import ThemeScript from "@/components/ThemeScript";
+
 
 export const metadata = {
   metadataBase: new URL(siteMetadata.siteUrl),
@@ -47,13 +48,7 @@ export default function RootLayout({ children }) {
           "antialiased bg-white dark:bg-dark"
         )}
       >
-        <Script>
-          {`if (localStorage.getItem('theme') === "dark" || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
-      document.documentElement.classList.add("dark");
-    } else {
-      document.documentElement.classList.remove("dark");
-    }`}
-        </Script>
+        <ThemeScript />
         <Header />
         {children}
         <Footer />

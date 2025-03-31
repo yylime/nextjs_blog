@@ -2,6 +2,7 @@
 
 # contentlayer
 .contentlayer
+.velite/
 
 # dependencies
 /node_modules

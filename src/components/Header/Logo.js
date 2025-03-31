@@ -9,7 +9,7 @@ const Logo = () => {
         <div className='w-12 md:w-16 rounded-full overflow-hidden border border-solid border-dark dark:border-light  mr-2 md:mr-4'>
             <Image src="/profile-img.png" alt='yylime' className='w-full h-auto rounded-full' width={100} height={100} priority/>
         </div>
-        <span className='font-bold text-lg xs:text-base md:text-xl dark:font-semibold'>Yylime's Blog</span>
+        <span className='font-bold text-lg xs:text-base md:text-xl dark:font-semibold'>YYLIME</span>
     </Link>
   )
 }
