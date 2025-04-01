@@ -1,22 +1,20 @@
 // please update required information
 const siteMetadata = {
-  title: "Next.js Blog With Tailwind CSS and Contentlayer",
+  title: "Next.js Blog With Tailwind CSS and Velte",
   author: "yylime",
   headerTitle: "Next.js Blog",
-  description: "A blog created with Next.js, Tailwind.css and contentlayer.",
-  language: "en-us",
+  description: "A blog created with Next.js, Tailwind.css and Velte by Yylime",
+  language: "en-zh",
   theme: "system", // system, dark or light
-  siteUrl: "https://create-blog-with-nextjs.vercel.app", // your website URL
+  siteUrl: "https://blog.limelime.top", // your website URL
   siteLogo: "/logo.png",
   socialBanner: "/social-banner.png", // add social banner in the public folder
   email: "yylimelime@gmail.com",
-  github: "https://github.com/codebucks27",
-  twitter: "https://twitter.com/code_bucks",
-  facebook: "https://facebook.com",
-  youtube: "https://youtube.com/codebucks",
-  linkedin: "https://www.linkedin.com/in/codebucks/",
-  dribbble: "https://www.dribbble.com",
-  locale: "en-US",
+  github: "https://github.com/yylime?tab=repositories",
+  // twitter: "https://twitter.com/code_bucks",
+  // facebook: "https://facebook.com",
+  // youtube: "https://youtube.com/codebucks",
+  locale: "en-CHN",
 };
 
 module.exports = siteMetadata;

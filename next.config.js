@@ -2,8 +2,8 @@
 module.exports = {
   // othor next config here...
   compiler: {
-    // removeConsole: process.env.NODE_ENV === "production" ? true : false,
-    removeConsole: true
+    removeConsole: process.env.NODE_ENV === "production" ? true : false,
+    // removeConsole: true
   },
   webpack: (config) => {
     config.plugins.push(new VeliteWebpackPlugin());

@@ -13,14 +13,14 @@ const Header = () => {
     <header className="w-full p-4 px-5 sm:px-10 flex items-center justify-between">
       <Logo />
       <nav className="w-max flex items-center gap-4 capitalize px-3 py-8 font-medium dark:text-light/90">
-        <Link href="/" className="mr-2">
-          Home
+        <Link href="/" className="mr-2 cursor-pointer">
+          home
         </Link>
-        <Link href="/about" className="mx-2">
-          About
+        <Link href="/about" className="mx-2 cursor-pointer">
+          about
         </Link>
-        <Link href="/contact" className="mx-2">
-          Contact
+        <Link href="/contact" className="mx-2 cursor-pointer">
+          contact
         </Link>
         <button
           className={cx(
