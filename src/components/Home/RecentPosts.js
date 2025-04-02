@@ -1,9 +1,6 @@
 import React from "react";
 import { sortBlogs } from "@/utils";
 import Link from "next/link";
-import Image from "next/image";
-import { format } from "date-fns";
-import { slug } from "github-slugger";
 import BlogLayoutThree from "../Blog/BlogLayoutThree";
 const RecentPosts = ({ blogs }) => {
   const sortedBlogs = sortBlogs(blogs);

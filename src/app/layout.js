@@ -1,12 +1,21 @@
 import "./globals.css";
 import { cx } from "@/utils";
 import Header from "@/components/Header";
-import { GeistSans } from "geist/font/sans";
-import { GeistMono } from "geist/font/mono";
-import { Noto_Sans_SC } from "next/font/google";
+import { Noto_Sans_SC, Geist_Mono, Roboto } from "next/font/google";
 import Footer from "@/components/Footer";
 import siteMetadata from "@/utils/siteMetaData";
 import ThemeScript from "@/components/ThemeScript";
+
+const NotoSansSC = Noto_Sans_SC({
+  subsets: ["latin"],
+  display: "swap",
+});
+
+const RobotoObj = Roboto({
+  subsets: ["latin"],
+  weight: "variable",
+  display: "swap",
+});
 
 
 export const metadata = {
@@ -39,26 +48,23 @@ export const metadata = {
   },
 };
 
-const NotoSansSC = Noto_Sans_SC({
-  subsets: ["latin"],
-  weight: ["300", "400", "700"],
-  display: "swap",
-});
+
 
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
       <body
         className={cx(
-          GeistSans.className,
-          GeistMono.className,
-          // NotoSansSC.className,
+          RobotoObj.className,
+          NotoSansSC.className,
           "antialiased bg-white dark:bg-dark"
         )}
       >
         <ThemeScript />
         <Header />
+        <div className="pt-2">
         {children}
+        </div>
         <Footer />
       </body>
     </html>

@@ -10,7 +10,7 @@ const Header = () => {
   const [mode, setMode] = useThemeSwitch();
 
   return (
-    <header className="w-full p-4 px-5 sm:px-10 flex items-center justify-between">
+    <header className="w-full px-5 sm:px-10 flex items-center justify-between sticky top-0 z-50 bg-white dark:bg-dark bg-opacity-95 dark:bg-opacity-95 border-b-2 border-slate-200">
       <Logo />
       <nav className="w-max flex items-center gap-4 capitalize px-3 py-8 font-medium dark:text-light/90">
         <Link href="/" className="mr-2 cursor-pointer">
