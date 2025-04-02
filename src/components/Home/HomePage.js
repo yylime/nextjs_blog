@@ -1,13 +1,15 @@
 import Image from "next/image";
 import React from "react";
-import homeCharactor from "/public/home.png";
-import LatestPost from "@/components/Home//LatestPost";
+import homeCharactor from "/public/profile-img.png";
+import LatestPost from "@/components/Home/LatestPost";
 
 const selfIntroduction = [
+  "男",
+  "190/65KG",
+  "毕业于BUPT",
+  "就职于CMG",
   "网络工程师",
   "Python爱好者",
-  "媒体工作",
-  "LOL",
   "Syslog",
   "Zabbix",
 ];
@@ -27,14 +29,15 @@ const bgColors = [
 const HomePage = ({ blogs }) => {
   return (
     <div className="w-full grid grid-cols-12 px-10 md:px-24 lg:px-32 gap-4">
-      <div className="col-span-12 md:col-span-4 flex flex-col pt-10 items-center justify-center">
+      <div className="col-span-12 md:col-span-4 flex flex-col pt-10 items-center justify-center relative ">
+        <div className="absolute top-10 left-0 right-0 bottom-0 md:border-r-2 border-slate-200" />
         <Image
           src={homeCharactor}
           alt="yylime_home"
-          className="object-contain object-center rounded-3xl w-full"
+          className="object-contain object-center rounded-3xl w-5/6"
           priority
         />
-        <ul className="flex flex-wrap mt-4 justify-center w-full xs:justify-start">
+        <ul className="flex flex-wrap mt-4 justify-center w-5/6 xs:justify-start">
           {selfIntroduction.map((item, index) => {
             const bgColor = bgColors[index % bgColors.length];
 
@@ -50,7 +53,7 @@ const HomePage = ({ blogs }) => {
         </ul>
       </div>
       <div className="col-span-12 md:col-span-8">
-      <LatestPost blogs={blogs} />
+        <LatestPost blogs={blogs} />
       </div>
     </div>
   );

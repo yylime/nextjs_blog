@@ -3,7 +3,7 @@ import React from "react";
 
 const Footer = () => {
   return (
-    <footer className="mt-16 pb-4 rounded-2xl bg-dark m-2 sm:m-10 flex flex-col text-light dark:text-dark dark:bg-accentDark">
+    <footer className="bottom-0 mt-16 pb-4 rounded-2xl bg-dark m-2 sm:m-10 flex flex-col text-light dark:text-dark dark:bg-accentDark">
       <h3 className="mt-8 font-medium dark:font-bold text-center text-2xl sm:text-3xl lg:text-4xl px-4">
         Interesting Stories | Updates | Guides
       </h3>

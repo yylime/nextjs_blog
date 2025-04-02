@@ -1,25 +1,65 @@
 import React from "react";
 import { sortBlogs } from "@/utils/index";
 import Link from "next/link";
-import BlogLayoutTwo from "../Blog/BlogLayoutTwo";
+import Image from "next/image";
+import { format } from "date-fns";
 const LatestPost = ({ blogs }) => {
   const sortedBlogs = sortBlogs(blogs);
   const blog = sortedBlogs[0];
   return (
-    <section className="w-full pt-10 xs:px-1 sm:px-4 md:px-8 flex flex-col items-start justify-start">
-      {/* <div className="w-full flex justify-between items-center text-white bg-[#dda15e] rounded-lg text-lg md:text-xl font-semibold ">
-        <h3 className="w-fit ml-4 inline-block capitalize dark:text-light">
-          最近的文章
-        </h3>
-        <Link
-          href="/categories/all"
-          className="mr-4 inline-block text-white dark:text-accentDark"
-        >
-          全部
-        </Link>
-      </div> */}
+    <section className="w-full">
+      <div className="grid grid-cols-3 gap-6 pt-10">
+        {sortedBlogs.slice(0, 6).map((blog, index) => (
+          <div
+            key={index}
+            className="group flex flex-col items-center text-dark dark:text-light h-full justify-start"
+          >
+            {/* 固定高度的 Image 容器 */}
+            <Link
+              href={blog.url}
+              className="h-[80px] lg:h-[100px] xl:h-[200px] w-full rounded-xl overflow-hidden"
+            >
+              <Image
+                src={blog.image.src}
+                placeholder="blur"
+                blurDataURL={blog.image.blurDataURL}
+                alt={blog.title}
+                width={blog.image.width}
+                height={blog.image.height}
+                className="w-full h-full object-cover object-left group-hover:scale-105 transition-all ease duration-300"
+                sizes="(max-width: 640px) 100vw,(max-width: 1024px) 50vw, 33vw"
+                priority
+              />
+            </Link>
 
-      <div className="grid grid-cols-1 grid-rows-2 gap-6 mt-10 sm:mt-16"></div>
+            {/* 让文本部分填充剩余空间 */}
+            <div className="flex flex-col w-full flex-grow mt-4">
+              {/* 分类标签 */}
+              <span className="uppercase text-accent dark:text-accentDark font-semibold text-xs sm:text-sm">
+                {blog.tags[0]}
+              </span>
+
+              {/* 标题，限制最大高度，避免超出影响布局 */}
+              <Link href={blog.url} className="inline-block my-1">
+                <h2 className="font-semibold capitalize text-base sm:text-lg line-clamp-2">
+                  <span
+                    className="bg-gradient-to-r from-accent/50 to-accent/50 dark:from-accentDark/50
+              dark:to-accentDark/50 bg-[length:0px_6px] group-hover:bg-[length:100%_6px] bg-left-bottom 
+              bg-no-repeat transition-[background-size] duration-500"
+                  >
+                    {blog.title}
+                  </span>
+                </h2>
+              </Link>
+
+              {/* 日期始终在最下面 */}
+              <span className="capitalize text-gray dark:text-light/50 font-semibold text-sm sm:text-base mt-auto">
+                {format(new Date(blog.publishedAt), "MMMM dd, yyyy")}
+              </span>
+            </div>
+          </div>
+        ))}
+      </div>
     </section>
   );
 };

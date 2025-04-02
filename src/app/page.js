@@ -8,8 +8,8 @@ export default function Home() {
     <div className="flex flex-col items-center justify-center">
       {/* <HomeCoverSection blogs={blogs} /> */}
       <HomePage blogs={blogs} />
-      <FeaturedPost blogs={blogs} />
-      <RecentPosts blogs={blogs} />
+      {/* <FeaturedPost blogs={blogs} />
+      <RecentPosts blogs={blogs} /> */}
     </div>
   );
 }
