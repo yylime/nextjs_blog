@@ -5,19 +5,18 @@ import Image from "next/image";
 import { format } from "date-fns";
 const LatestPost = ({ blogs }) => {
   const sortedBlogs = sortBlogs(blogs);
-  const blog = sortedBlogs[0];
   return (
     <section className="w-full">
       <div className="grid grid-cols-3 gap-6 pt-10">
         {sortedBlogs.slice(0, 6).map((blog, index) => (
           <div
             key={index}
-            className="group flex flex-col items-center text-dark dark:text-light h-full justify-start"
+            className="group flex flex-col items-center text-dark dark:text-white/80 h-full justify-start"
           >
             {/* 固定高度的 Image 容器 */}
             <Link
               href={blog.url}
-              className="h-[80px] lg:h-[100px] xl:h-[200px] w-full rounded-xl overflow-hidden"
+              className="h-[80px] lg:h-[100px] xl:h-[200px] xxxl:h-[300px] w-full rounded-xl overflow-hidden"
             >
               <Image
                 src={blog.image.src}

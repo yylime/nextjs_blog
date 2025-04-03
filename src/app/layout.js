@@ -1,7 +1,7 @@
 import "./globals.css";
 import { cx } from "@/utils";
 import Header from "@/components/Header";
-import { Noto_Sans_SC, Geist_Mono, Roboto } from "next/font/google";
+import { Noto_Sans_SC, Roboto } from "next/font/google";
 import Footer from "@/components/Footer";
 import siteMetadata from "@/utils/siteMetaData";
 import ThemeScript from "@/components/ThemeScript";
@@ -57,12 +57,12 @@ export default function RootLayout({ children }) {
         className={cx(
           RobotoObj.className,
           NotoSansSC.className,
-          "antialiased bg-white dark:bg-dark"
+          "antialiased bg-light dark:bg-dark"
         )}
       >
         <ThemeScript />
         <Header />
-        <div className="pt-2">
+        <div className="pt-0">
         {children}
         </div>
         <Footer />
