@@ -3,7 +3,7 @@ import React from "react";
 import profileCharactor from "/public/character.png";
 const AboutCoverSection = () => {
   return (
-    <section className="w-ful md:h-[75vh] border-b-2 border-solid border-dark dark:border-light dark:text-light flex flex-col md:flex-row items-center justify-center text-dark">
+    <section className="w-full md:h-[75vh] border-b-2 border-solid border-dark dark:border-light dark:text-light flex flex-col md:flex-row items-center justify-center text-dark">
       <div className="w-full md:w-1/2 h-full border-r-2 border-solid border-dark dark:border-light dark:text-light flex justify-center">
         <Image
           src={profileCharactor}

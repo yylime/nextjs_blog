@@ -12,7 +12,7 @@ const Header = () => {
   return (
     <header className="w-full px-5 sm:px-10 flex items-center justify-between sticky top-0 z-50 bg-light dark:bg-dark bg-opacity-95 dark:bg-opacity-95 border-b border-slate-200">
       <Logo />
-      <nav className="w-max flex items-center gap-4 capitalize px-3 py-8 font-medium dark:text-white">
+      <nav className="w-max flex items-center gap-4 capitalize px-3 py-6 font-medium dark:text-white">
         <Link href="/" className="mr-2 cursor-pointer">
           主页
         </Link>
