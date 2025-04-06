@@ -3,7 +3,7 @@
 
 
 修改为自己喜欢的样式
-![主页](public\main_page.png)
+![主页](public/main_page.png)
 
 ## Getting Started
 ```
