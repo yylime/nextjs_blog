@@ -3,7 +3,7 @@ User-agent: *
 Allow: /
 
 # Host
-Host: https://create-blog-with-nextjs.vercel.app
+Host: https://blog.limelime.top
 
 # Sitemaps
-Sitemap: https://create-blog-with-nextjs.vercel.app/sitemap.xml
+Sitemap: https://blog.limelime.top/sitemap.xml

@@ -4,6 +4,7 @@ import MDXContent from "./MdxContent";
 
 const mdxComponents = {
   // Add any custom components here
+  a: (props) => <a target="_blank" rel="noopener noreferrer" {...props} />,
 };
 
 const RenderMdx = ({ blog }) => {

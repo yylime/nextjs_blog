@@ -1,15 +1,17 @@
+### 根据YouTube学习的博客网站
+[参考视频](https://www.youtube.com/watch?v=1QGLHOaRLwM&list=WL&index=4&t=6283s)
+
+
+修改为自己喜欢的样式
+![主页](public\main_page.png)
+
 ## Getting Started
 ```
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+yarn install && yarn dev
 ```
 
 ### update
+ - 2025-04-06 修复了部分的显示bug，删除了旧的博客内容。
  - 2025-04-05 更正了主页部分显示样式
  - 2025-04-02 设计了配色，优化了部分无用的网页
  - 2025-04-02 开始重新排版主页，进行重新设计
