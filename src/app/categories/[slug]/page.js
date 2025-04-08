@@ -2,7 +2,7 @@ import { blogs as allBlogs } from "velite/generated";
 import BlogLayoutThree from "@/components/Blog/BlogLayoutThree";
 import Categories from "@/components/Blog/Categories";
 import { slug as slugify } from "github-slugger";
-
+import { sortBlogs } from "@/utils";
 
 export async function generateStaticParams() {
   const categories = [];
@@ -50,7 +50,7 @@ export default async function CategoryPage ({ params }) {
   allCategories.sort();
 
   // Step 2: Filter blogs based on the current category (params.slug)
-  const blogs = allBlogs.filter((blog) => {
+  const blogs = sortBlogs(allBlogs).filter((blog) => {
     if (slug === "all") {
       return true; // Include all blogs if 'all' category is selected
     }

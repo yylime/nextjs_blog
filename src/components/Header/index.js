@@ -8,6 +8,21 @@ import { MoonIcon, SunIcon } from "../Icons";
 import { useThemeSwitch } from "../Hooks/useThemeSwitch";
 import { cx } from "@/utils";
 
+// 高亮匹配内容的函数
+const highlightMatch = (text, query) => {
+  if (!query) return text; // 如果没有输入内容，直接返回原始文本
+  const regex = new RegExp(`(${query})`, "gi"); // 创建正则表达式，忽略大小写
+  const parts = text.split(regex); // 根据正则表达式分割文本
+  return parts.map((part, index) =>
+    regex.test(part) ? (
+      <span key={index} className="text-accent font-semibold dark:text-accentDark">
+        {part}
+      </span>
+    ) : (
+      part
+    )
+  );
+};
 const Header = () => {
   const [mode, setMode] = useThemeSwitch();
   const [searchQuery, setSearchQuery] = useState(""); // 搜索框输入值
@@ -75,14 +90,14 @@ const Header = () => {
             {searchResults.map((result) => (
               <li
                 key={result.slug}
-                className="cursor-pointer text-slate-800 flex w-full text-sm items-center rounded-md p-3 transition-all hover:bg-slate-100 focus:bg-slate-100 active:bg-slate-100"
+                className="cursor-pointer text-slate-800 flex w-full text-sm items-center rounded-md p-3 transition-all hover:bg-slate-100 focus:bg-slate-100 active:bg-slate-100 dark:text-slate-200 dark:hover:bg-slate-700 dark:focus:bg-slate-700 dark:active:bg-slate-700"
               >
                 <Link
                   href={result.url}
                   className="block"
                   onClick={() => setSearchResults([])}
                 >
-                  {result.title}
+                  {highlightMatch(result.title, searchQuery)}
                 </Link>
               </li>
             ))}

@@ -1,0 +1,207 @@
+---
+title: "从零开始建立基础的 TACACS+ NG 身份验证服务"
+description: "在本教程中，我们将从零开始建立一个基础的 TACACS+ NG 身份验证服务。"
+image: tacasng.png
+publishedAt: 2025-04-07 22:24:00
+updatedAt: 2025-04-07 22:24:00
+author: "yylime"
+isPublished: true
+tags: 
+- TACACS+
+- Switch
+slug: establishing-basic-tacacs-ng-authentication-services-from-scratch
+---
+
+### 官方参考
+
+地址：[tacacs+ng](https://projects.pro-bono-publico.de/event-driven-servers/doc/tac_plus-ng.html)
+
+Git: https://github.com/MarcJHuber/event-driven-servers/
+
+### 下载
+
+```python
+git clone https://github.com/MarcJHuber/event-driven-servers.git
+```
+
+### 安装
+
+```shell
+# 进入下载后到文件
+cd event-driven-servers
+# complile
+./configure tac_plus-ng
+make
+sudo make install
+
+# 检查是否成功
+/usr/local/sbin/tac_plus-ng -v
+```
+
+### 制作配置文件
+
+通过vim或者nano生产配置文件到一个配置文件，例如 `tacacs.conf`
+
+```shell
+id = spawnd {
+        # tacacs+默认端口为49，wireshark可将目的端口为49的tcp解析为tacacs+报文
+        listen = { port = 49 }
+        spawn = {
+                instances min = 1
+                instances max = 100
+        }
+}
+
+id = tac_plus-ng {
+        # 日志记录
+        key = "cisco"
+        log authentication { destination = /var/log/tac_plus/authentication/authentication.log }
+        log authorization { destination = /var/log/tac_plus/authorization/authorization.log }
+        log accounting  { destination = /var/log/tac_plus/accounting/accounting.log }
+        log access  { destination = /var/log/tac_plus/access/access.log }
+    
+        authentication log = authentication
+        authorization log = authorization
+        accounting log = accounting
+        access log = access
+
+        # 设备描述
+        device world {
+                address = ::/0
+                welcome banner = "\nCMG-NET yylime welcome\n\n"
+                key = "cisco"
+        }
+
+        device cmg {
+                address = 172.20.0.0/16
+                welcome banner = "\nCMG-NET yylime welcome\n\n"
+                key = "cisco"
+        }
+        # 用户组配置
+        group = admin {
+    
+        }
+
+        # 用户配置
+        user = demo {
+                #使用明文密码
+                password login = clear demo123
+                member = admin
+                profile {
+                    script {
+                        if (service == shell) {
+                            set priv-lvl = 15
+                            permit
+                        }
+                        permit
+                    }  
+                }
+        }
+
+        # 规则匹配
+        ruleset {
+            rule from-cmg {
+                enabled = yes
+                script {
+                    if (nas == cmg) {
+                        permit
+                    }
+                }
+            }
+    }
+}
+```
+
+创建日志文件夹，并且配置权限
+
+```shell
+mkdir /var/log/tac_plus/authentication
+mkdir /var/log/tac_plus/authorization
+mkdir /var/log/tac_plus/accounting
+mkdir /var/log/tac_plus/access
+sudo chmod 777 /var/log/tac_plus
+```
+
+### 检查配置，并启动服务
+
+```shell
+# 检查命令
+/usr/local/sbin/tac_plus-ng -P tacacs.conf
+# 前台运行
+/usr/local/sbin/tac_plus-ng -f tacacs.conf
+# 后台运行
+/usr/local/sbin/tac_plus-ng -b tacacs.conf
+```
+
+
+### 交换机配置并测试
+
+测试服务已在172.20.255.156上运行，配置后可用上面配置文件中的demo:demo123 测试
+
+**H3C交换机几个关键点配置（172.20.250.20为例）**
+
+```shell
+# tacacs config
+hwtacacs nas-ip 172.20.250.20
+hwtacacs scheme acs
+primary authentication 172.20.255.156 key simple cisco
+primary authorization 172.20.255.156 key simple cisco
+primary accounting 172.20.255.156 key simple cisco
+# very import the line below
+user-name-format without-domain
+
+# domain config
+domain cctv
+authentication login hwtacacs-scheme acs local
+authorization login hwtacacs-scheme acs local
+accounting login hwtacacs-scheme acs local
+authorization command hwtacacs-scheme acs local
+accounting command hwtacacs-scheme acs
+quit
+domain default enable cctv
+
+# vty
+line vty 0 4
+authentication-mode scheme
+user-role level-15
+protocol inbound ssh
+command authorization
+command accounting
+```
+
+华为
+
+```shell
+# tacacs config
+hwtacacs enable
+hwtacacs-server template acs
+  hwtacacs-server authentication 172.20.255.156
+  hwtacacs-server authorization 172.20.255.156
+  hwtacacs-server accounting 172.20.255.156 
+  hwtacacs-server shared-key cipher cisco
+  undo hwtacacs-server user-name domain-included
+  hwtacacs-server source-ip 172.20.250.20
+
+
+# aaa 认证、授权、审计
+aaa
+authentication-scheme acs
+authentication-mode hwtacacs local
+
+authorization-scheme acs
+authorization-mode hwtacacs local
+
+accounting-scheme acs
+accounting-mode hwtacacs
+accounting start-fail online
+# 记录命令
+recording-scheme acs
+recording-mode hwtacacs acs
+cmd recording-scheme acs
+
+domain default_admin
+  authentication-scheme acs
+  accounting-scheme acs
+  authorization-scheme acs
+  hwtacacs-server acs
+```
