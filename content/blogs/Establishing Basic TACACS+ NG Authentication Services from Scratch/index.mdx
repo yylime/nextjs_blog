@@ -12,6 +12,52 @@ tags:
 slug: establishing-basic-tacacs-ng-authentication-services-from-scratch
 ---
 
+
+**tac_plus-ng** 是一个支持 TACACS+ 和 RADIUS 协议的守护进程，主要为网络设备（如路由器和交换机）提供认证（Authentication）、授权（Authorisation）和计费（Accounting）服务。
+
+本版本是对最初公开发布的 Cisco 源码的重大重写，同时大量基于同一发行版中的 `tac_plus` 项目构建而成。
+
+### 主要特性
+
+- **支持 NAS 设备特定的密钥、提示符和启用密码**  
+  可为不同的 NAS（网络访问服务器）设备配置专用密钥和访问控制参数。
+
+- **基于规则的权限分配机制**  
+  通过配置规则实现灵活的用户权限控制。
+
+- **支持灵活的外部后端用户数据库**  
+  支持使用 PERL 脚本、C 语言程序等自定义后端，还内置支持 LDAP（包括 Active Directory）、RADIUS 等多种用户资料来源。
+
+- **连接多路复用（Connection Multiplexing）**  
+  支持每个进程同时处理多个 NAS 客户端连接。
+
+- **会话多路复用（Session Multiplexing）**  
+  支持在单个连接中并发多个会话，提升资源利用率。
+
+- **高可扩展性**  
+  没有用户、客户端或服务器数量限制。
+
+- **支持 CLI 上下文感知**  
+  能够感知命令行接口（CLI）中的上下文环境，以提供更智能的权限控制。
+
+- **全面支持 IPv4 和 IPv6**
+
+- **实现并自动识别 HAProxy 协议 v2**
+
+- **支持 TLS 加密传输**
+
+- **符合 RFC 8907 标准**
+
+- **支持 Linux VRF（虚拟路由与转发）**
+
+- **支持非标准的 SSH 公钥认证机制**  
+  详见官方 Wiki 获取详细配置说明。
+
+- **支持多种 RADIUS 协议变体的自动识别与实现**  
+  包括传统 RADIUS（UDP 和 TCP）、RADSEC（基于 TLS）以及 RADIUS/DTLS（基于 DTLS），均支持 PAP 认证。
+
+
+## 准备工作
 ### 官方参考
 
 地址：[tacacs+ng](https://projects.pro-bono-publico.de/event-driven-servers/doc/tac_plus-ng.html)
@@ -38,7 +84,7 @@ sudo make install
 /usr/local/sbin/tac_plus-ng -v
 ```
 
-### 制作配置文件
+## 制作配置文件
 
 通过vim或者nano生产配置文件到一个配置文件，例如 `tacacs.conf`
 
@@ -122,7 +168,7 @@ mkdir /var/log/tac_plus/access
 sudo chmod 777 /var/log/tac_plus
 ```
 
-### 检查配置，并启动服务
+## 检查配置，并启动服务
 
 ```shell
 # 检查命令
@@ -134,13 +180,14 @@ sudo chmod 777 /var/log/tac_plus
 ```
 
 
-### 交换机配置并测试
+## 交换机配置并测试
 
-测试服务已在172.20.255.156上运行，配置后可用上面配置文件中的demo:demo123 测试
+测试服务已在172.20.255.156上运行，配置后可用上面配置文件中的`demo:demo123` 测试
 
+### H3C配置
 **H3C交换机几个关键点配置（172.20.250.20为例）**
 
-```shell
+```shell showLineNumbers {8}
 # tacacs config
 hwtacacs nas-ip 172.20.250.20
 hwtacacs scheme acs
@@ -169,9 +216,9 @@ command authorization
 command accounting
 ```
 
-华为
+### 华为配置
 
-```shell
+```shell showLineNumbers {8}
 # tacacs config
 hwtacacs enable
 hwtacacs-server template acs
