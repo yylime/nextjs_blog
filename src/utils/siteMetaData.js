@@ -11,9 +11,6 @@ const siteMetadata = {
   socialBanner: "/social-banner.png", // add social banner in the public folder
   email: "yylimelime@gmail.com",
   github: "https://github.com/yylime?tab=repositories",
-  // twitter: "https://twitter.com/code_bucks",
-  // facebook: "https://facebook.com",
-  // youtube: "https://youtube.com/codebucks",
   locale: "en-CHN",
 };
 
