@@ -7,7 +7,7 @@ const LatestPost = ({ blogs }) => {
   const sortedBlogs = sortBlogs(blogs);
   return (
     <section className="w-full">
-      <div className="grid grid-cols-3 gap-6 pt-10">
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-6 pt-10">
         {sortedBlogs.slice(0, 6).map((blog, index) => (
           <div
             key={index}
@@ -16,7 +16,7 @@ const LatestPost = ({ blogs }) => {
             {/* 固定高度的 Image 容器 */}
             <Link
               href={blog.url}
-              className="h-[80px] lg:h-[100px] xl:h-[200px] xxxl:h-[300px] w-full rounded-xl overflow-hidden"
+              className="h-[100px] lg:h-[100px] xl:h-[200px] xxxl:h-[300px] w-full rounded-xl overflow-hidden"
             >
               <Image
                 src={blog.image.src}

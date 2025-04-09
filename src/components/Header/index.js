@@ -104,7 +104,7 @@ const Header = () => {
           </ul>
         )}
       </div>
-      <nav className="w-max flex items-center gap-4 capitalize px-3 py-6 font-medium dark:text-white">
+      <nav className="hidden w-max sm:flex items-center gap-4 capitalize px-3 py-6 font-medium dark:text-white">
         <Link href="/" className="mr-2 cursor-pointer">
           主页
         </Link>
