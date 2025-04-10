@@ -1,8 +1,8 @@
 // please update required information
 const siteMetadata = {
-  title: "Next.js Blog With Tailwind CSS and Velte",
+  title: "YYLime's Blog",
   author: "yylime",
-  headerTitle: "Next.js Blog",
+  headerTitle: "YYLime",
   description: "A blog created with Next.js, Tailwind.css and Velte by Yylime",
   language: "en-zh",
   theme: "system", // system, dark or light
@@ -11,7 +11,7 @@ const siteMetadata = {
   socialBanner: "/social-banner.png", // add social banner in the public folder
   email: "yylimelime@gmail.com",
   github: "https://github.com/yylime?tab=repositories",
-  locale: "en-CHN",
+  locale: "en-zh",
 };
 
 module.exports = siteMetadata;
