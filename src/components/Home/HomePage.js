@@ -48,8 +48,8 @@ const HomePage = ({ blogs }) => {
             })}
           </ul>
           <div className="flex items-center w-5/6 justify-start xs:justify-center md:justify-start">
-            <span className="font-semibold inline-block capitalize py-2 px-3 text-white rounded-lg mr-8 mb-3 hover:scale-105 transition-all ease duration-200 cursor-pointer dark:font-normal bg-[#dda15e] overflow-hidden text-xs md:text-sm">
-              email: yylimelime@gmail.com
+            <span className="font-semibold inline-block py-2 px-3 text-white rounded-lg mr-8 mb-3 hover:scale-105 transition-all ease duration-200 cursor-pointer dark:font-normal bg-[#dda15e] overflow-hidden text-xs md:text-sm">
+              Email: yylimelime@gmail.com
             </span>
           </div>
         </div>

@@ -1,0 +1,103 @@
+---
+title: "解决Django在DEBUG为False的500Error"
+description: 之前在项目中使用了Meterial UI，但是由于DEBUG为False出现了500错误，解决方法如下
+image: 1_slHeZngyeUr7ypEz7MNL5w-1024x536.png
+publishedAt: 2025-04-10 09:59:00
+updatedAt: 2025-04-10 09:59:00
+author: "yylime"
+isPublished: true
+tags: 
+- Django
+slug: error-500-django-debug-false
+---
+
+之前在单位内部的Django项目中使用了Meterial UI，一直工作在DEBUG模式下没有任何问题。最近打算切换到生产模式但是一直出现500错误，今天偶然发现原来是compressor的配置问题，如下给出解决方案。
+
+## 解决方案
+我的项目配置文件做如下修改：
+```python showLineNumbers title="settings.py" {8-12}
+STATIC_URL = "/static/"
+STATIC_ROOT = BASE_DIR / "collections"
+
+STATICFILES_DIRS = [os.path.join(BASE_DIR, "static")]
+
+MEDIA_ROOT = BASE_DIR / "static/media"
+
+COMPRESS_ROOT = STATIC_ROOT
+COMPRESS_URL = STATIC_URL
+COMPRESS_ENABLED = True
+COMPRESS_OFFLINE = True
+STATICFILES_FINDERS = ('compressor.finders.CompressorFinder',)
+```
+然后执行
+```shell
+python manage.py collectstatic
+python manage.py compress  # 只有启用了 COMPRESS_OFFLINE 时需要执行
+```
+最后选择合适自己的运行方案
+``` shell
+python manage.py runserver
+gunicorn manage:app --bind 0.0.0.0:8000
+```
+
+## Meterial UI在Django中的使用
+[官方教程](https://www.material-tailwind.com/docs/html/guide/django)
+
+在配置`compressor.py`的时候，官方文档给出了如下配置
+
+```python showLineNumbers title="settings.py"
+COMPRESS_ROOT = BASE_DIR / 'static'
+ 
+COMPRESS_ENABLED = True
+
+STATICFILES_FINDERS = ('compressor.finders.CompressorFinder',)
+```
+按照官方的流程一直走下去是没有问题的，尤其在使用`python manage.py runserver`的时候，一切正常。但是当我使用`gunicorn`部署到服务器上需要加载静态文件到**STATIC_ROOT**下，具体配置如下。
+
+### 使用gunicorn
+```python showLineNumbers title="settings.py"
+STATIC_URL = "/static/"
+STATIC_ROOT = BASE_DIR / "collections"
+```
+
+并且需要在url.py配置中加入静态地址解析
+```python showLineNumbers title="urls.py"
+urlpatterns = [
+    path('admin/', admin.site.urls),
+    path('', include('app.urls')),
+    path('', include('nms.urls')),
+    re_path(r'^static/(?P<path>.*)$', serve, {'document_root': settings.STATIC_ROOT}, ),
+]
+```
+然后执行 `python manage.py collectstatic`，问题就出现了，无法将静态文件复制到**STATIC_ROOT**下，但是将这三行注释掉我发现在debug模式下仍旧可以正常工作，于是我就一直处于debug模式。
+```python showLineNumbers title="settings.py"
+# COMPRESS_ROOT = BASE_DIR / 'static'
+# COMPRESS_ENABLED = True
+# STATICFILES_FINDERS = ('compressor.finders.CompressorFinder',)
+```
+
+## 解决思路
+今天又进行了测试，我怀疑是**Meterial UI**的配置问题，于是我把注释掉的内容恢复并将`DEBUG=False`，我发现可以正常工作了。但是！！**Meterial UI**的样式没了。于是我尝试询问ChatGPT如何解决这个问题，最开始建议如下配置（只是建议我多一个**COMPRESS_URL**），但是并不工作。
+```python showLineNumbers title="settings.py"
+STATIC_URL = '/static/'
+STATIC_ROOT = BASE_DIR / 'staticfiles'
+
+COMPRESS_ROOT = STATIC_ROOT  # 或者 BASE_DIR / 'staticfiles'
+COMPRESS_URL = STATIC_URL
+```
+
+但是在我尝试执行 `python manage.py compress`的时候，出现了`CommandError: Offline compression is disabled. Set COMPRESS_OFFLINE or use the --force to override.`这个错误，于是我将最后的配置设置如下，问题解决。
+```python showLineNumbers title="settings.py" {8-12}
+STATIC_URL = "/static/"
+STATIC_ROOT = BASE_DIR / "collections"
+
+STATICFILES_DIRS = [os.path.join(BASE_DIR, "static")]
+
+MEDIA_ROOT = BASE_DIR / "static/media"
+
+COMPRESS_ROOT = STATIC_ROOT
+COMPRESS_URL = STATIC_URL
+COMPRESS_ENABLED = True
+COMPRESS_OFFLINE = True
+STATICFILES_FINDERS = ('compressor.finders.CompressorFinder',)
+```

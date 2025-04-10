@@ -1,8 +1,10 @@
 ### 根据YouTube学习的博客网站
 [参考视频](https://www.youtube.com/watch?v=1QGLHOaRLwM&list=WL&index=4&t=6283s)
 
+你可以在这里看到blog: [blog.limelime.top](https://blog.limelime.top) <br/>
+持续更新中...
 
-修改为自己喜欢的样式
+#### 修改为自己喜欢的样式
 ![主页](public/main_page.png)
 
 ## Getting Started
@@ -11,6 +13,7 @@ yarn install && yarn dev
 ```
 
 ### update
+ - 2025-04-10 时间显示切换为中文，增加了一篇博客，增加了footer内容
  - 2025-04-07 搜索框支持高亮显示搜索关键词，手动增加了一篇博客，不在push生成的public下的图片
  - 2025-04-07 增加了搜索框，支持搜索和跳转~
  - 2025-04-06 修复了部分的显示bug，删除了旧的博客内容。

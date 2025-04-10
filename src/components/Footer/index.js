@@ -7,7 +7,7 @@ const Footer = () => {
         <div className="mt-10 flex w-full flex-col items-center justify-center gap-4 border-t border-slate-200 py-4 md:flex-row md:justify-between">
           <small className="font-sans antialiased text-sm text-current text-center dark:text-white">
             Copyright &copy; {new Date().getFullYear()} yylime. All rights
-            reserved.
+            reserved.  <span className="text-xs font-semibold">——转载请注明出处</span>
           </small>
           <div className="flex gap-1 sm:justify-center ">
             <a

@@ -3,6 +3,7 @@ import { sortBlogs } from "@/utils/index";
 import Link from "next/link";
 import Image from "next/image";
 import { format } from "date-fns";
+import { zhCN } from 'date-fns/locale'
 const LatestPost = ({ blogs }) => {
   const sortedBlogs = sortBlogs(blogs);
   return (
@@ -53,7 +54,7 @@ const LatestPost = ({ blogs }) => {
 
               {/* 日期始终在最下面 */}
               <span className="capitalize text-gray dark:text-light/50 font-semibold text-sm sm:text-base mt-auto">
-                {format(new Date(blog.publishedAt), "MMMM dd, yyyy")}
+              {format(new Date(blog.publishedAt), "yyyy年MM月dd日", { locale: zhCN })}
               </span>
             </div>
           </div>

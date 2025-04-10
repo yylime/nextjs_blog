@@ -2,6 +2,7 @@ import { format } from "date-fns";
 import Image from "next/image";
 import Link from "next/link";
 import React from "react";
+import { zhCN } from 'date-fns/locale'
 
 const BlogLayoutThree = ({ blog }) => {
   return (
@@ -38,7 +39,7 @@ const BlogLayoutThree = ({ blog }) => {
         </Link>
 
         <span className="capitalize text-gray dark:text-light/50 font-semibold text-sm  sm:text-base">
-          {format(new Date(blog.publishedAt), "MMMM dd, yyyy")}
+          {format(new Date(blog.publishedAt), "yyyy年MM月dd日", { locale: zhCN })}
         </span>
       </div>
     </div>
