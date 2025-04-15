@@ -30,7 +30,7 @@ const HomePage = ({ blogs }) => {
           <Image
             src={homeCharactor}
             alt="yylime_home"
-            className="object-contain object-center rounded-3xl w-5/6 hover:scale-105 transition-all ease duration-200"
+            className="object-contain object-center rounded-3xl w-5/6 hover:scale-105 transition-all ease duration-200 shadow-lg shadow-gray dark:shadow-zinc-700"
             priority
           />
           <ul className="flex flex-wrap mt-4 w-5/6 justify-start xs:justify-center md:justify-start">
@@ -40,7 +40,7 @@ const HomePage = ({ blogs }) => {
               return (
                 <li
                   key={index}
-                  className={`${bgColor} font-semibold inline-block capitalize text-sm py-2 px-3 text-white rounded-lg mr-3 mb-3 hover:scale-105 transition-all ease duration-200 cursor-pointer dark:font-normal`}
+                  className={`${bgColor} font-semibold inline-block capitalize text-sm py-2 px-3 text-white rounded-lg mr-3 mb-3 hover:scale-105 transition-all ease duration-200 cursor-pointer dark:font-normal shadow-md shadow-gray dark:shadow-zinc-700`}
                 >
                   {item}
                 </li>
@@ -48,13 +48,13 @@ const HomePage = ({ blogs }) => {
             })}
           </ul>
           <div className="flex items-center w-5/6 justify-start xs:justify-center md:justify-start">
-            <span className="font-semibold inline-block py-2 px-3 text-white rounded-lg mr-8 mb-3 hover:scale-105 transition-all ease duration-200 cursor-pointer dark:font-normal bg-[#dda15e] overflow-hidden text-xs md:text-sm">
+            <span className="font-semibold inline-block py-2 px-3 text-white rounded-lg mr-8 mb-3 hover:scale-105 transition-all ease duration-200 cursor-pointer dark:font-normal bg-[#dda15e] overflow-hidden text-xs md:text-sm shadow-md shadow-gray dark:shadow-zinc-700">
               Email: yylimelime@gmail.com
             </span>
           </div>
         </div>
 
-        <div className="justify-start inline-block text-justify text-lg text-gray-500 pr-8 xl:pr-12 2xl:pr-24 mt-8 text-dark dark:text-white">
+        <div className="justify-start inline-block text-justify text-lg text-gray-500 pr-8 xl:pr-12 2xl:pr-24 mt-8 text-dark dark:text-white/80">
           Success is not in what you have, but who you are. The true measure of
           a person’s life is not how much they achieve, but the impact they have
           on others.

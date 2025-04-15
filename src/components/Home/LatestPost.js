@@ -17,7 +17,7 @@ const LatestPost = ({ blogs }) => {
             {/* 固定高度的 Image 容器 */}
             <Link
               href={blog.url}
-              className="h-[100px] lg:h-[100px] xl:h-[200px] xxxl:h-[300px] w-full rounded-xl overflow-hidden"
+              className="h-[100px] lg:h-[100px] xl:h-[200px] xxxl:h-[300px] w-full overflow-visible"
             >
               <Image
                 src={blog.image.src}
@@ -26,7 +26,7 @@ const LatestPost = ({ blogs }) => {
                 alt={blog.title}
                 width={blog.image.width}
                 height={blog.image.height}
-                className="w-full h-full object-cover object-left group-hover:scale-105 transition-all ease duration-300"
+                className="w-full h-full object-cover object-left group-hover:scale-105 transition-all ease duration-300 shadow-lg shadow-gray dark:shadow-zinc-700 rounded-xl"
                 sizes="(max-width: 640px) 100vw,(max-width: 1024px) 50vw, 33vw"
                 priority
               />
@@ -41,11 +41,11 @@ const LatestPost = ({ blogs }) => {
 
               {/* 标题，限制最大高度，避免超出影响布局 */}
               <Link href={blog.url} className="inline-block my-1">
-                <h2 className="font-semibold capitalize text-base sm:text-lg line-clamp-2">
+                <h2 className="font-semibold capitalize text-base sm:text-lg line-clamp-2 ">
                   <span
                     className="bg-gradient-to-r from-accent/50 to-accent/50 dark:from-accentDark/50
               dark:to-accentDark/50 bg-[length:0px_6px] group-hover:bg-[length:100%_6px] bg-left-bottom 
-              bg-no-repeat transition-[background-size] duration-500"
+              bg-no-repeat transition-[background-size] duration-500 dark:text-white/80"
                   >
                     {blog.title}
                   </span>
@@ -54,7 +54,9 @@ const LatestPost = ({ blogs }) => {
 
               {/* 日期始终在最下面 */}
               <span className="capitalize text-gray dark:text-light/50 font-semibold text-sm sm:text-base mt-auto">
-              {format(new Date(blog.publishedAt), "yyyy年MM月dd日", { locale: zhCN })}
+                {format(new Date(blog.publishedAt), "yyyy年MM月dd日", {
+                  locale: zhCN,
+                })}
               </span>
             </div>
           </div>

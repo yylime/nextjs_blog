@@ -1,12 +1,13 @@
 "use client";
 
-import { blogs } from "velite/generated";
+
 import React, { useState, useRef, useEffect } from "react";
 import Logo from "@/components/Header/Logo";
 import Link from "next/link";
 import { MoonIcon, SunIcon } from "../Icons";
 import { useThemeSwitch } from "../Hooks/useThemeSwitch";
 import { cx } from "@/utils";
+import BlogFilter from "@/api/blogfilter"
 
 // 高亮匹配内容的函数
 const highlightMatch = (text, query) => {
@@ -36,9 +37,7 @@ const Header = () => {
     if (query.trim() === "") {
       setSearchResults([]);
     } else {
-      const results = blogs.filter((blog) =>
-        blog.title.toLowerCase().includes(query.toLowerCase())
-      );
+      const results = BlogFilter({ query }); // 调用搜索函数
       setSearchResults(results);
     }
   };
@@ -104,7 +103,7 @@ const Header = () => {
           </ul>
         )}
       </div>
-      <nav className="hidden w-max sm:flex items-center gap-4 capitalize px-3 py-6 font-medium dark:text-white">
+      <nav className="hidden w-max sm:flex items-center gap-4 capitalize px-3 py-6 font-medium dark:text-white/80">
         <Link href="/" className="mr-2 cursor-pointer">
           主页
         </Link>

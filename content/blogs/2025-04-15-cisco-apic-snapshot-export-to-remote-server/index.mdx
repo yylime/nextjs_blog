@@ -1,0 +1,83 @@
+---
+title: "CISCO APIC 定时导出快照到远程服务器目录"
+description: 通过WEB界面配置定时任务，将快照导出到远程服务器目录
+image: apic_main.png
+publishedAt: 2025-04-15 15:01:00
+updatedAt: 2025-04-15 15:01:00
+author: "yylime"
+isPublished: true
+tags: 
+- cisco
+slug: cisco-apic-snapshot-export-to-remote-server
+---
+
+最近业务中使用的思科ACI需要割接，出于对配置信息的备份计划将快照定时导出到远程服务器目录，通过WEB界面配置定时任务，将快照导出到远程服务器目录。之前从没配置过，今天刚好记录一下。
+
+## 官方教程
+首先在bing搜索得到如下的一份官方文档: [文档地址](https://www.cisco.com/c/en/us/td/docs/switches/datacenter/aci/apic/sw/4-x/cli-configuration/Cisco-APIC-NX-OS-Style-CLI-Configuration-Guide-411/b-APIC-NXOS-CLI-User-Guide-411_chapter_010010.pdf) <br />
+其中给出了详细的命令配置信息，但是没有web界面的。<br />
+
+**Before you begin**
+`If you want to export snapshots according to a schedule, configure a scheduler before configuring the export
+policy.`
+但是注意到开头的信息，我们可以根据这个提示可以了解到大致的逻辑:
+1. 配置远程目录
+2. 增加定时任务scheduler
+3. 将定时任务挂载到快照导出策略上
+
+## WEB 操作流程
+
+
+### 配置远程目录
+   1. 进入配置界面
+   2. 选择`Admin` -> `Remote Locations` ->右上角 `Create Remote Location` 或者点击如下界面
+   <Image
+      src="/blogs/apic-1.png"
+      alt="Image"
+      width={741}
+      height={400}
+      style={{
+         width: '100%',
+         height: 'auto',
+      }}
+      sizes="100vw"
+      />
+   3. 点击`Add`
+   4. 填写远程服务器信息
+   <Image
+        src="/blogs/apic-2.png"
+        alt="Image"
+      width={741}
+      height={400}
+      style={{
+         width: '100%',
+         height: 'auto',
+      }}
+      sizes="100vw"
+      />
+   5. 点击`Submit`
+### 配置导出策略并挂载定时任务
+   1. 进入配置界面
+   <Image
+        src="/blogs/apic-3.png"
+        alt="Image"
+      width={741}
+      height={400}
+      style={{
+         width: '100%',
+         height: 'auto',
+      }}
+      sizes="100vw"
+      />
+   2. 选择`Create Configuration Export Policy`
+   <Image
+        src="/blogs/apic-end.png"
+        alt="Image"
+      width={741}
+      height={400}
+      style={{
+         width: '100%',
+         height: 'auto',
+      }}
+      sizes="100vw"
+      />

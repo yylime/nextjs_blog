@@ -5,7 +5,7 @@ const Footer = () => {
     <footer className="relative w-full">
       <div className="mx-auto w-full max-w-[90vw] px-8">
         <div className="mt-10 flex w-full flex-col items-center justify-center gap-4 border-t border-slate-200 py-4 md:flex-row md:justify-between">
-          <small className="font-sans antialiased text-sm text-current text-center dark:text-white">
+          <small className="font-sans antialiased text-sm text-current text-center dark:text-white/80">
             Copyright &copy; {new Date().getFullYear()} yylime. All rights
             reserved.  <span className="text-xs font-semibold">——转载请注明出处</span>
           </small>
