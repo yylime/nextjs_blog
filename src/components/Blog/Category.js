@@ -11,7 +11,7 @@ const Category = ({ link = "#", name, active, ...props }) => {
         props.className,
         active
           ? "bg-dark text-white/80 dark:bg-white/80 dark:text-dark"
-          : "text-white/80 text-dark dark:text-white/80 dark:bg-dark"
+          : "bg-white/80 text-dark dark:text-white/80 dark:bg-dark"
       )}
     >
       {name}

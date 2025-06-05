@@ -7,7 +7,6 @@ const selfIntroduction = [
   "男",
   "190/65KG",
   "毕业于BUPT",
-  "就职于CMG",
   "网络工程师",
   "Python爱好者",
   "Syslog",
@@ -55,9 +54,7 @@ const HomePage = ({ blogs }) => {
         </div>
 
         <div className="justify-start inline-block text-justify text-lg text-gray-500 pr-8 xl:pr-12 2xl:pr-24 mt-8 text-dark dark:text-white/80">
-          Success is not in what you have, but who you are. The true measure of
-          a person’s life is not how much they achieve, but the impact they have
-          on others.
+        Close to things rather than escaping them.
         </div>
       </div>
 
